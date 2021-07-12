@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const { generateToken } = require("../../helpers/token");
 
 async function createUser(req, res){
-    const { user_email, user_password, user_role } = req.body;
+    const { user_email, user_password} = req.body;
 
     try {
         const user = await db.query("SELECT * FROM user_account WHERE user_email = $1", [user_email]);
@@ -14,7 +14,7 @@ async function createUser(req, res){
 
         const hash = await bcrypt.hashSync(user_password, 10);
 
-        const newUser = await db.query("INSERT INTO user_account (user_email, user_password, user_role) VALUES ($1, $2, $3) RETURNING *", [user_email, hash, user_role]);
+        const newUser = await db.query("INSERT INTO user_account (user_email, user_password) VALUES ($1, $2, $3) RETURNING *", [user_email, hash]);
         const token = await generateToken(newUser);
         res.status(201).json({user, token})
     } catch (error) {
