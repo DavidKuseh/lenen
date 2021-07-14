@@ -3,8 +3,8 @@ const secret = require("../config/secrets");
 
 function generateToken(user){
     const payload = {
-        subject: user.user_id,
-        role: user.user_role
+        subject: user.id,
+        role: user.role
     };
     const options = {
         expiresIn: "30d"
