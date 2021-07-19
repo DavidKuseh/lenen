@@ -1,52 +1,27 @@
-const db = require("../../config");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../../helpers/token");
+const Users = require('../../models/auth');
 
-async function createUser(req, res){
-    const { email, password, role } = req.body;
+const createUser = async (req, res) => {
+    const {password} = req.body;
+    const hash = await bcrypt.hashSync(password, 10);
+    req.body.password = hash;
 
     try {
-        const user = await db.query("SELECT * FROM user_account WHERE email = $1", [email]);
-
-        if(user.rows.length){
-            return res.status(401).json("User already exists");
-        };
-
-        const hash = await bcrypt.hashSync(password, 10);
-
-        const newUser = await db.query("INSERT INTO user_account (email, password, role) VALUES ($1, $2, $3) RETURNING *", [email, hash, role]);
-        res.status(201).json({newUser})
+        const user = await Users.addNewUser(req.body);
+        delete user.password; 
+        res.status(201).json({user})
     } catch (error) {
         res.status(500).json({error: error.message})
     }
 }
 
-async function findUsers(req, res){
+const findUserById = async (req, res) => {
     try {
-        const users = await db.query("SELECT * FROM user_account")
-        res.status(200).json({users})
-    } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
-
-async function findUserById(req, res){
-    let { email, password } = req.body;
-    
-    try {
-        const user = await db.query("SELECT * FROM user_account WHERE email = $1", [email]);
-
-        if(!user.rows.length){
-            return res.status(401).json("Invalid crendential")
-        }
-        
-        const validPassword = await bcrypt.compareSync(password, user.rows[0].password)
-        
-        if(!validPassword){
-            return res.status(401).json("Invalid credential");
-        }
-        const token = await generateToken(user);
-        res.status(200).json({ user, email: user.email, token})
+        const token = generateToken(req.user);
+        const user = req.user;
+        delete user.password;
+        res.status(200).json({ user, token})
     } catch (error) {
         res.status(500).json({error: error.message})
     }
@@ -54,6 +29,5 @@ async function findUserById(req, res){
 
 module.exports = {
     createUser,
-    findUserById,
-    findUsers
+    findUserById
 };
