@@ -21,7 +21,7 @@ exports.up = function(knex) {
             table
                 .integer('role')
                 .unsigned()
-                .references('users.id')
+                .references('roles.id')
                 .onUpdate('CASCADE')
                 .defaultTo(2)
       });
