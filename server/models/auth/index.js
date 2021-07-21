@@ -25,8 +25,9 @@ async function getUserById(id) {
 
 async function getBy(filter) {
     try {
-        const user = await db('users')
-        .select('id', 'password', 'email', 'role')
+        const user = await db('users as u')
+        .join('roles as r', 'u.role', '=', 'r.id')
+        .select('u.id', 'u.password', 'r.name as role', 'u.email')
         .where(filter)
         .first()
         return user;
