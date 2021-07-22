@@ -2,8 +2,11 @@ const router = require("express").Router();
 
 const { createUser, findUserById } = require("../../controllers/auth");
 
-router.post("/register", createUser);
+const { validateData } = require('../../middleware/validateData');
+const { validateUser } = require('../../middleware/validateUser');
 
-router.post("/login", findUserById);
+router.post("/register", validateData, validateUser, createUser);
+
+router.post("/login", validateData, validateUser, findUserById);
 
 module.exports = router;
