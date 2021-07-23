@@ -6,6 +6,8 @@ const cors = require('cors');
 
 const server = express();
 
+server.set('view engine', 'ejs');
+
 const authRouter = require('../routes/auth');
 const bookRouter = require('../routes/books');
 
@@ -18,7 +20,7 @@ server.use('/api/books', bookRouter);
 
 
 server.get( '/', (req, res, next) => {
-    res.send('<p>Landing page</p>')
+    res.render('index');
 });
 
 module.exports = server;
