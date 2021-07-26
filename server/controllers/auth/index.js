@@ -10,11 +10,15 @@ const createUser = async (req, res) => {
     try {
         const user = await Users.addNewUser(req.body);
         delete user.password; 
-        res.status(201).json({user})
+        res.redirect('/')
     } catch (error) {
         res.status(500).json({error: error.message})
     }
 }
+
+const getRegisterPage = async (req, res) => {
+    res.render('register', {title: 'Register'})
+};
 
 const findUserById = async (req, res) => {
     try {
@@ -27,7 +31,18 @@ const findUserById = async (req, res) => {
     }
 }
 
+const findUsers = async (req, res) => {
+    try {
+        const users = await Users.getUsers()
+        res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    };
+};
+
 module.exports = {
     createUser,
-    findUserById
+    getRegisterPage,
+    findUserById,
+    findUsers
 };

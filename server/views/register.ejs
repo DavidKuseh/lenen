@@ -1,0 +1,27 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <form action="/api/auth/register" method="POST">
+        <label for="email">Email</label>
+        <input 
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+            required
+        >
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            required
+        >
+        <button>Submit</button>
+    </form>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
