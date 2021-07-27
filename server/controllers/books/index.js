@@ -9,6 +9,10 @@ const addBookListing = async (req, res) => {
     };
 };
 
+const getAdminPage = async (req, res) => {
+    res.render('create',  { title: 'Admin Page' });
+};
+
 const getBookListing = async (req, res) => {
     const id = req.params.id;
     try {
@@ -58,6 +62,7 @@ const deleteBookListing = async (req, res) => {
 
 module.exports = {
     addBookListing,
+    getAdminPage,
     getBookListing,
     getAllBooks,
     editBookListing,
