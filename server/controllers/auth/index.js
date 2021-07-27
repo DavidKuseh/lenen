@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
     try {
         const user = await Users.addNewUser(req.body);
         delete user.password; 
-        res.redirect('/')
+        res.status(201).json({ user })
     } catch (error) {
         res.status(500).json({error: error.message})
     }
@@ -20,12 +20,17 @@ const getRegisterPage = async (req, res) => {
     res.render('register', {title: 'Register'})
 };
 
+const getLoginPage = async (req, res) => {
+    res.render('login', {title: 'Login'})
+};
+
 const findUserById = async (req, res) => {
     try {
         const token = generateToken(req.user);
         const user = req.user;
         delete user.password;
         res.status(200).json({ user, token})
+
     } catch (error) {
         res.status(500).json({error: error.message})
     }
@@ -43,6 +48,7 @@ const findUsers = async (req, res) => {
 module.exports = {
     createUser,
     getRegisterPage,
+    getLoginPage,
     findUserById,
     findUsers
 };
