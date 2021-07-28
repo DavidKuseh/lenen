@@ -23,7 +23,7 @@ server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
 
 server.get( '/', (req, res, next) => {
-    res.render('index', {title: 'Home Page'});
+    res.redirect('/api/books');
 });
 
 module.exports = server;

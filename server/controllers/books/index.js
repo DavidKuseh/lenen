@@ -29,7 +29,7 @@ const getAllBooks = async (req, res) => {
     try {
         const books = await Books.getBooks();
         if(books) {
-            res.status(200).json({ books });
+        res.render('books', { books : books , title: 'Home'})
         };
     } catch (error) {
         res.status(500).json({error: error.message});
