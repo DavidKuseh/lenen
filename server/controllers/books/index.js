@@ -18,7 +18,7 @@ const getBookListing = async (req, res) => {
     try {
         const book = await Books.getBookById(id);
         if(book) {
-            res.status(200).json({ book });
+            res.render('book-detail', { book: book, title: book.title })
         };
     } catch (error) {
         res.status(500).json({error: error.message});

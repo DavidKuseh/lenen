@@ -7,10 +7,9 @@
     <div>
         <% if(books != null){ %>
             <% books.forEach(book => { %>
-            <a href="">
+            <a href="/api/books/<%= book.id %>">
                 <h3><%= book.title %></h3>
                 <h4><%= book.author %></h4>
-                <p><%= book.description %></p>
                 <p><%= book.year_published %></p>
                 <p><%= book.category %></p>
             </a>
