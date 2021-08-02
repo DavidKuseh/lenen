@@ -65,6 +65,8 @@
             <option value="Journal">Journal</option>
             <option value="Math">Math</option>
             <option value="Memoir">Memoir</option>
+            <option value="Military">Military</option>
+            <option value="Military Fiction">Military Fiction</option>
             <option value="Mystery">Mystery</option>
             <option value="Philosophy">Philosophy</option>
             <option value="Picture book">Picture book</option>
@@ -94,6 +96,21 @@
         >
         <button>Submit</button>
     </form>
+    <div>
+        <% if(books != null){ %>
+            <% books.forEach(book => { %>
+            <a href="/api/books/<%= book.id %>">
+                <h3><%= book.title %></h3>
+                <h4><%= book.author %></h4>
+                <p><%= book.year_published %></p>
+                <p><%= book.category %></p>
+            </a>
+            <a href="<%=`/api/books/${book.id}/edit` %>"><button>Edit</button></a>
+            <% }) %>
+        <% } else { %>
+            <p>No books available</p>
+        <% } %>
+    </div>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>
