@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { addBookListing, getAdminPage, getBookListing, getAllBooks, editBookListing, deleteBookListing } = require('../../controllers/books');
+const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing } = require('../../controllers/books');
 
 router.post('/create', addBookListing);
 
@@ -10,7 +10,9 @@ router.get('/:id', getBookListing);
 
 router.get('/', getAllBooks);
 
-router.put('/:id', editBookListing);
+router.put('/:id/edit', editBookListing);
+
+router.get('/:id/edit', getEditBookPage);
 
 router.delete('/:id', deleteBookListing);
 

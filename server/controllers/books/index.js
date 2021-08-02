@@ -2,15 +2,20 @@ const Books = require('../../models/books');
 
 const addBookListing = async (req, res) => {
     try {
-        const book = await Books.addNewBook(req.body);
-        res.status(201).json({ book })
+        await Books.addNewBook(req.body);
+        res.redirect('/api/books/create');
     } catch (error) {
         res.status(500).json({error: error.message});
     };
 };
 
 const getAdminPage = async (req, res) => {
-    res.render('create',  { title: 'Admin Page' });
+    try {
+        const books = await Books.getBooks();
+        res.render('create',  { title: 'Admin Page', books: books });
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
 };
 
 const getBookListing = async (req, res) => {
@@ -36,13 +41,23 @@ const getAllBooks = async (req, res) => {
     };
 };
 
+const getEditBookPage = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const book = await Books.getBookById(id)
+        res.render('book-edit', { title: 'Update book', book: book});
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    };
+};
+
 const editBookListing = async (req, res) => {
     const id = req.params.id;
     const changes = req.body;
     try {
         await Books.editBook(id, changes);
-        const updated = await Books.getBookById(id);
-        return res.status(200).json(updated);
+        await Books.getBookById(id)
+            res.redirect('/api/books/create')
     } catch (error) {
         res.status(500).json({error: error.message});
     };
@@ -58,13 +73,14 @@ const deleteBookListing = async (req, res) => {
     } catch (error) {
         res.status(500).json({error: error.message});
     };
-}
+};
 
 module.exports = {
     addBookListing,
     getAdminPage,
     getBookListing,
     getAllBooks,
+    getEditBookPage,
     editBookListing,
     deleteBookListing
-}
+};

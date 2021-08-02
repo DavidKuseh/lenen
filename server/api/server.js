@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const methodOverride = require('method-override');
 
 const server = express();
 
@@ -18,6 +19,10 @@ const bookRouter = require('../routes/books');
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
+
+server.use(methodOverride('_method', {
+    methods: ['POST']
+}));
 
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
