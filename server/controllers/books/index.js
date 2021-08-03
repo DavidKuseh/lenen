@@ -68,7 +68,7 @@ const deleteBookListing = async (req, res) => {
     try {
         const book = await Books.deleteBook(id);
         if(book) {
-            res.status(200).json(`Book with id:${id} deleted`);
+            res.redirect('/api/books/create');
         };
     } catch (error) {
         res.status(500).json({error: error.message});
