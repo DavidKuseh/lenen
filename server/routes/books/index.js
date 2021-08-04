@@ -1,10 +1,12 @@
 const router = require('express').Router();
 
-const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing } = require('../../controllers/books');
+const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing, getSearchPage } = require('../../controllers/books');
 
 router.post('/create', addBookListing);
 
 router.get('/create', getAdminPage);
+
+router.get('/search', getSearchPage);
 
 router.get('/:id', getBookListing);
 

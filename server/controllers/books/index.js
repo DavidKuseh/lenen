@@ -18,6 +18,14 @@ const getAdminPage = async (req, res) => {
     }
 };
 
+const getSearchPage = async (req, res) => {
+    try {
+        res.render('search',  { title: 'Search Page'});
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+};
+
 const getBookListing = async (req, res) => {
     const id = req.params.id;
     try {
@@ -82,5 +90,6 @@ module.exports = {
     getAllBooks,
     getEditBookPage,
     editBookListing,
-    deleteBookListing
+    deleteBookListing,
+    getSearchPage
 };

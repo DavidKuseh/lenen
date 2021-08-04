@@ -1,0 +1,18 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <form action="/api/books" method="GET">
+        <label for="search"></label>
+        <input 
+            type="text"
+            id="Search"
+            name="Search"
+            placeholder="Search for book..."
+        >
+        <button>Search</button>
+    </form>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
+
