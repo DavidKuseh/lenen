@@ -25,20 +25,31 @@ async function getBookById(id) {
 
 async function getBy(filter) {
     try {
-        const book = await db('books')
+        const books = await db('books')
             .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN')
             .where(filter)
             .first()
-        return book;
+        return books;
     } catch (error) {
         console.log(error);
     };
 };
 
-async function getBooks() {
+async function getBooks(query) {
+    const books = db('books');
     try {
-        const books = await db('books')
-            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN')
+        if(query.title) {
+            return books.whereRaw("LOWER(title) LIKE '%' || LOWER(?) || '%' ", query.title) 
+        }
+
+        if(query.author) {
+            return books.whereRaw("LOWER(author) LIKE '%' || LOWER(?) || '%' ", query.author);
+        }
+
+        if(query.category) {
+            return books.whereRaw("LOWER(category) LIKE '%' || LOWER(?) || '%' ", query.category);
+        }
+        
         return books;
     } catch (error) {
         console.log(error);
