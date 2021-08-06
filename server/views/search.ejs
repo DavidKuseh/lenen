@@ -2,18 +2,27 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
-    <form action="<%= `/api/books/search` %>" method="GET">
-        <label for="search"></label>
+    <form action="/api/books/search" method="GET">
+        <label for="search">Search book title</label>
         <input 
-            type="text"
+            type="search"
             id="search"
-            name="search"
-            placeholder="Search by title, author or category..."
+            name="title"
+            placeholder="Search by title..."
+        >
+        <button>Search</button>
+    </form>
+    <form action="/api/books/search" method="GET">
+        <label for="search">Search for author(s)</label>
+        <input 
+            type="search"
+            id="search"
+            name="author"
+            placeholder="Search by author(s)..."
         >
         <button>Search</button>
     </form>
     <div>
-        <p>Search Results</p>
         <div>
             <% if(filteredBooks != null){ %>
                 <% filteredBooks.forEach(book => { %>
@@ -29,7 +38,12 @@
             <% } %>
         </div>
     </div>
+    <a href="/">Back to home page</a>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>
+
+
+
+
 
