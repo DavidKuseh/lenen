@@ -1,5 +1,4 @@
 const Books = require('../../models/books');
-const { search } = require('../../routes/books');
 
 const addBookListing = async (req, res) => {
     try {
@@ -22,11 +21,10 @@ const getAdminPage = async (req, res) => {
 const getSearchPage = async (req, res) => {
     try {
         const { title, author } = req.query;
-        const filteredBooks = await Books.getBooks({ title, author});
+        const filteredBooks = await Books.searchBooks({ title, author});
         if (!filteredBooks){
             res.send("No books found")
         } else {
-            console.log(req.query)
             res.render('search', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
         }
     } catch (error) {

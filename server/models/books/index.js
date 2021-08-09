@@ -35,7 +35,17 @@ async function getBy(filter) {
     };
 };
 
-async function getBooks(query) {
+
+async function getBooks() {
+    const books = await db('books');
+    try {
+        return books;
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+async function searchBooks(query) {
     const books = db('books');
     try {
 
@@ -78,6 +88,7 @@ module.exports = {
     addNewBook,
     getBookById,
     getBy,
+    searchBooks,
     getBooks,
     editBook,
     deleteBook
