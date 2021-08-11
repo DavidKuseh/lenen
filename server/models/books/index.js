@@ -48,13 +48,8 @@ async function getBooks() {
 async function searchBooks(query) {
     const books = db('books');
     try {
-
-        if(query.title) {
-            return books.whereRaw("LOWER(title) LIKE '%' || LOWER(?) || '%' ", query.title) 
-        }
-
-        if(query.author) {
-            return books.whereRaw("LOWER(author) LIKE '%' || LOWER(?) || '%' ", query.author);
+        if(query.q){
+            return books.whereRaw("CONCAT(title, author, description) ILIKE '%' || LOWER(?) || '%'", query.q)
         }
         return books;
     } catch (error) {

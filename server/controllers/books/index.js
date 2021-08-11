@@ -20,13 +20,9 @@ const getAdminPage = async (req, res) => {
 
 const getSearchPage = async (req, res) => {
     try {
-        const { title, author } = req.query;
-        const filteredBooks = await Books.searchBooks({ title, author});
-        if (!filteredBooks){
-            res.send("No books found")
-        } else {
-            res.render('search', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
-        }
+        const { q } = req.query;
+        const filteredBooks = await Books.searchBooks({ q });
+        res.render('search', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -45,11 +41,10 @@ const getBookListing = async (req, res) => {
 };
 
 const getAllBooks = async (req, res) => {
-    const { title, author } = req.query;
     try {
-        const books = await Books.getBooks({title, author});
+        const books = await Books.getBooks();
         if(books) {
-            res.render('books', { books : books , title: 'Home', query: req.query})
+            res.render('books', { books : books , title: 'Home'})
         };
     } catch (error) {
         res.status(500).json({error: error.message});
