@@ -6,10 +6,12 @@
 
     <div>
         <h2><%= book.title %></h2>
-        <p><%= book.description%></p>
         <h4><%= book.author %></h4>
+        <h4>Description</h4>
+        <p><%= book.description%></p>
         <p><%= book.year_published %></p>
         <p><%= book.category %></p>
+        <p><%= book.ISBN %></p>
     </div>
 
     <%- include('./partials/footer.ejs') %>
