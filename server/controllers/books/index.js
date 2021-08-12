@@ -3,7 +3,7 @@ const Books = require('../../models/books');
 const addBookListing = async (req, res) => {
     try {
         await Books.addNewBook(req.body);
-        res.redirect('/api/books/create');
+        res.redirect('/api/books/admin');
     } catch (error) {
         res.status(500).json({error: error.message});
     };
@@ -12,7 +12,7 @@ const addBookListing = async (req, res) => {
 const getAdminPage = async (req, res) => {
     try {
         const books = await Books.getBooks();
-        res.render('create',  { title: 'Admin Page', books: books });
+        res.render('admin',  { title: 'Admin Page', books: books });
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -67,7 +67,7 @@ const editBookListing = async (req, res) => {
     try {
         await Books.editBook(id, changes);
         await Books.getBookById(id)
-            res.redirect('/api/books/create')
+            res.redirect('/api/books/admin')
     } catch (error) {
         res.status(500).json({error: error.message});
     };
@@ -78,7 +78,7 @@ const deleteBookListing = async (req, res) => {
     try {
         const book = await Books.deleteBook(id);
         if(book) {
-            res.redirect('/api/books/create');
+            res.redirect('/api/books/admin');
         };
     } catch (error) {
         res.status(500).json({error: error.message});

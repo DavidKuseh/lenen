@@ -2,7 +2,7 @@
 <%- include('./partials/head.ejs') %>
 
 <body>
-    <a href="/api/books/create">Back to admin page</a>
+    <a href="/api/books/admin">Back to admin page</a>
     <p>Edit a book listing</p>
         <form action="<%=`/api/books/${book.id}/edit?_method=PUT`%>" method="POST">
             <label for="title">Title</label>

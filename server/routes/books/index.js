@@ -2,9 +2,9 @@ const router = require('express').Router();
 
 const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing, getSearchPage } = require('../../controllers/books');
 
-router.post('/create', addBookListing);
+router.post('/admin',  addBookListing);
 
-router.get('/create', getAdminPage);
+router.get('/admin', getAdminPage);
 
 router.get('/search', getSearchPage);
 
