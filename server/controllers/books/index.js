@@ -11,6 +11,10 @@ const addBookListing = async (req, res) => {
 
 const getAdminPage = async (req, res) => {
     try {
+        const { role } = req.decoded;
+        if(role !== 'admin'){
+            return res.send('not authorized')
+        }
         const books = await Books.getBooks();
         res.render('admin',  { title: 'Admin Page', books: books });
     } catch (error) {

@@ -1,21 +1,31 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secrets");
 
-module.exports = {
-  validateToken: async function (req, res, next, err) {
-    const token = req.headers.authorization
-    if (!token) {
-      return next({ status: 401, message: err.message })
-    }
-    jwt.verify(token, secret.jwtSecret, (err, decodedToken) => {
+function validateToken(req, res, next) {
+  const token = req.get('Authorization');
+
+  if (token) {
+    jwt.verify(token, secret.jwtSecret, (err, decoded) => {
       if (err) {
-        return next({ status: 401, message: err.message})
+        res
+          .status(401)
+          .json({
+            error: err,
+            message: 'The token provided is not valid or has expired'
+          });
+      } else {
+        req.decoded = decoded;
+        next();
       }
-      req.decodedJwt = decodedToken
-      next()
-    })
+    });
+  } else {
+    res
+      .status(401)
+      .json({ message: 'The token provided is not valid or has expired' });
   }
-};
+}
+
+module.exports = { validateToken };
 
 
 

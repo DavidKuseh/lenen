@@ -5,26 +5,22 @@ const helmet = require('helmet');
 const cors = require('cors');
 const methodOverride = require('method-override');
 
-const Books = require('../models/books');
-
 const server = express();
 
-server.set('view engine', 'ejs');
-
 server.use(express.static("public"));
-
-server.use(express.urlencoded({ extended: true }))
-
-const authRouter = require('../routes/auth');
-const bookRouter = require('../routes/books');
-
+server.set('view engine', 'ejs');
 server.use(express.json());
 server.use(helmet());
 server.use(cors());
-
+server.use(express.urlencoded({ extended: true }))
 server.use(methodOverride('_method', {
     methods: ['POST']
 }));
+
+const Books = require('../models/books');
+
+const authRouter = require('../routes/auth');
+const bookRouter = require('../routes/books');
 
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);

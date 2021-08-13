@@ -2,9 +2,11 @@ const router = require('express').Router();
 
 const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing, getSearchPage } = require('../../controllers/books');
 
-router.post('/admin',  addBookListing);
+const { validateToken } = require('../../middleware/validateToken');
 
-router.get('/admin', getAdminPage);
+router.post('/admin', validateToken, addBookListing);
+
+router.get('/admin', validateToken, getAdminPage);
 
 router.get('/search', getSearchPage);
 
