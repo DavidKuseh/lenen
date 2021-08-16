@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secrets");
+const User = require('../models/auth');
 
 function validateToken(req, res, next) {
   const token = req.get('Authorization');
@@ -25,7 +26,27 @@ function validateToken(req, res, next) {
   }
 }
 
-module.exports = { validateToken };
+function checkUser(req, res, next) {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    jwt.verify(token, secret.jwtSecret, (err, decoded) => {
+      if (err) {
+        res.locals.user = null;
+        next();
+      } else {
+        let user = User.getUserById(decoded.subject);
+        res.locals.user = user;
+        next();
+      }
+    })
+  } else {
+    res.locals.user = null;
+    next();
+  };
+};
+
+module.exports = { validateToken, checkUser };
 
 
 

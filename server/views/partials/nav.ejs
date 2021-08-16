@@ -2,8 +2,16 @@
     <div class="site-title">
         <a href="/"><h1>Lenen</h1></a>
     </div>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/api/auth/register">Sign Up or Log In</a></li>
-    </ul>
+    <% if(!user){ %>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/api/auth/register">Sign Up or Log In</a></li>
+        </ul>
+        <% } else { %>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li>Welcome, <%= user.email %></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+    <% } %>
 </nav>
