@@ -21,9 +21,12 @@ const Books = require('../models/books');
 
 const authRouter = require('../routes/auth');
 const bookRouter = require('../routes/books');
+const { checkUser } = require('../middleware/validateToken');
 
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
+
+server.get('*', checkUser);
 
 server.get( '/', async (req, res) => {
     const books = await Books.getBooks();

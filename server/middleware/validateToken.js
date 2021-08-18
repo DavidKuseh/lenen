@@ -26,16 +26,16 @@ function validateToken(req, res, next) {
   }
 }
 
-function checkUser(req, res, next) {
+async function checkUser(req, res, next) {
   const token = localStorage.getItem('token');
 
   if (token) {
-    jwt.verify(token, secret.jwtSecret, (err, decoded) => {
+    jwt.verify(token, secret.jwtSecret, async (err, decoded) => {
       if (err) {
         res.locals.user = null;
         next();
       } else {
-        let user = User.getUserById(decoded.subject);
+        let user = await User.getUserById(decoded.subject);
         res.locals.user = user;
         next();
       }
