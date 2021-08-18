@@ -32,12 +32,11 @@ const getLoginPage = async (req, res) => {
 const login = async (req, res) => {
     try {
         const token = generateToken(req.user);
-        localStorage.setItem('token', token);
         const user = req.user;
         delete user.password;
+        localStorage.setItem('token', token);
         localStorage.setItem('userEmail', user.email);
-        localStorage.setItem('userRole', user.role);
-        res.status(200).json({ user, token})
+        res.redirect('/')
     } catch (error) {
         res.status(500).json({error: error.message})
     }
@@ -45,8 +44,9 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        localStorage.clear();
-        res.redirect('/');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userEmail');
+        res.redirect('/')
     } catch (error) {
         res.status(500).json({error: error.message})
     }
@@ -61,22 +61,11 @@ const findUsers = async (req, res) => {
     };
 };
 
-const getUserProfile = async (req, res) => {
-    const {subject} = req.decoded;
-    try {
-        const user = await Users.getUserById(subject);
-        res.render('profile', { title: 'My Profile', user: user})
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-}
-
 module.exports = {
     register,
     getRegisterPage,
     getLoginPage,
     login,
     logout,
-    findUsers,
-    getUserProfile
+    findUsers
 };

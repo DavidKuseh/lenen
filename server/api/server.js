@@ -26,7 +26,7 @@ const { checkUser } = require('../middleware/validateToken');
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
 
-server.get('*', checkUser);
+server.all('*', checkUser);
 
 server.get( '/', async (req, res) => {
     const books = await Books.getBooks();
