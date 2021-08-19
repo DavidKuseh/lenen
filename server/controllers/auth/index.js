@@ -6,6 +6,13 @@ if (typeof localStorage === "undefined" || localStorage === null) {
     var LocalStorage = require('node-localstorage').LocalStorage;
     localStorage = new LocalStorage('./scratch');
 }
+const getRegisterPage = async (req, res) => {
+    res.render('register', {title: 'Register'})
+};
+
+const getLoginPage = async (req, res) => {
+    res.render('login', {title: 'Login'})
+};
 
 const register = async (req, res) => {
     const {password} = req.body;
@@ -20,14 +27,6 @@ const register = async (req, res) => {
         res.status(500).json({error: error.message})
     }
 }
-
-const getRegisterPage = async (req, res) => {
-    res.render('register', {title: 'Register'})
-};
-
-const getLoginPage = async (req, res) => {
-    res.render('login', {title: 'Login'})
-};
 
 const login = async (req, res) => {
     try {
@@ -62,9 +61,9 @@ const findUsers = async (req, res) => {
 };
 
 module.exports = {
-    register,
     getRegisterPage,
     getLoginPage,
+    register,
     login,
     logout,
     findUsers
