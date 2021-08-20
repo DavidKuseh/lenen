@@ -7,11 +7,11 @@ if (typeof localStorage === "undefined" || localStorage === null) {
     localStorage = new LocalStorage('./scratch');
 }
 const getRegisterPage = async (req, res) => {
-    res.render('register', {title: 'Register'})
+    res.render('register', {title: 'Register'});
 };
 
 const getLoginPage = async (req, res) => {
-    res.render('login', {title: 'Login'})
+    res.render('login', {title: 'Login'});
 };
 
 const register = async (req, res) => {
@@ -22,11 +22,11 @@ const register = async (req, res) => {
     try {
         const user = await Users.addNewUser(req.body);
         delete user.password; 
-        res.status(201).json({ user })
+        res.redirect('/api/auth/login');
     } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
+        res.status(500).json({error: error.message});
+    };
+};
 
 const login = async (req, res) => {
     try {
@@ -35,21 +35,31 @@ const login = async (req, res) => {
         delete user.password;
         localStorage.setItem('token', token);
         localStorage.setItem('userEmail', user.email);
-        res.redirect('/')
+        res.redirect('/');
     } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
+        res.status(500).json({error: error.message});
+    };
+};
 
 const logout = async (req, res) => {
     try {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userEmail');
-        res.redirect('/')
+        localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
+        res.redirect('/');
     } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-}
+        res.status(500).json({error: error.message});
+    };
+};
+
+const getProfile = async (req, res) => {
+    const { subject } = req.decoded;
+    try {
+        const profile = await Users.getUserById(subject);
+        res.render('user-profile', { title: 'My Profile', profile: profile })
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    };
+};
 
 const findUsers = async (req, res) => {
     try {
@@ -66,5 +76,6 @@ module.exports = {
     register,
     login,
     logout,
+    getProfile,
     findUsers
 };
