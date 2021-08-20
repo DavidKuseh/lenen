@@ -3,7 +3,7 @@ const secret = require("../config/secrets");
 const User = require('../models/auth');
 
 function validateToken(req, res, next) {
-  const token = req.get('Authorization');
+  const token = localStorage.getItem('token');
 
   if (token) {
     jwt.verify(token, secret.jwtSecret, (err, decoded) => {
@@ -17,14 +17,14 @@ function validateToken(req, res, next) {
       } else {
         req.decoded = decoded;
         next();
-      }
+      };
     });
   } else {
     res
       .status(401)
       .json({ message: 'The token provided is not valid or has expired' });
-  }
-}
+  };
+};
 
 async function checkUser(req, res, next) {
   const token = localStorage.getItem('token');
