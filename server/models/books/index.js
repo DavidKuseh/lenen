@@ -51,7 +51,6 @@ async function searchBooks(query) {
         if(query.q){
             return books.whereRaw("CONCAT(title, author, description) ILIKE '%' || LOWER(?) || '%'", query.q)
         }
-        return books;
     } catch (error) {
         console.log(error);
     };

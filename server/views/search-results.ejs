@@ -1,17 +1,7 @@
-<html lang="en">
 <%- include('./partials/head.ejs') %>
 
 <body>
-    <form action="/api/books/search" method="GET">
-        <label for="search"></label>
-        <input 
-            type="search"
-            id="search"
-            name="q"
-            placeholder="Search by title, author or description"
-        >
-        <button>Search</button>
-    </form>
+    <%- include('./partials/nav.ejs') %>
     <div>
         <div>
             <% if(filteredBooks != null){ %>
@@ -29,11 +19,8 @@
         </div>
     </div>
     <a href="/">Back to home page</a>
-    <%- include('./partials/footer.ejs') %>
+
 </body>
-</html>
 
 
-
-
-
+<%- include('./partials/footer.ejs') %>

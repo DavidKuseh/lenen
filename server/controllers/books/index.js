@@ -26,11 +26,12 @@ const getSearchPage = async (req, res) => {
     try {
         const { q } = req.query;
         const filteredBooks = await Books.searchBooks({ q });
-        res.render('search', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
+        res.render('search-results', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
     } catch (error) {
         res.status(500).json({error: error.message});
     }
 };
+
 
 const getBookListing = async (req, res) => {
     const id = req.params.id;
