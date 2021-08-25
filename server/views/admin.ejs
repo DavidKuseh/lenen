@@ -5,7 +5,7 @@
     <a href="/">Go back to homepage</a>
     <p>Admin page</p>
     <p>Create a book listing</p>
-    <form action="/api/books/admin" method="POST">
+    <form action="/api/books/admin" method="POST" enctype="multipart/form-data">
         <label for="title">Title</label>
         <input 
             type="text"
@@ -94,6 +94,8 @@
             placeholder="Enter book ISBN"
             required
         >
+        <label for="upload">Upload Book Cover</label>
+        <input type="file" name="upload" />
         <button>Submit</button>
     </form>
     <div>
