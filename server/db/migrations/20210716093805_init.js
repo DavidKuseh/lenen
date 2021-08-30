@@ -48,7 +48,7 @@ exports.up = function(knex) {
                 .notNullable()
                 .unique();
             table
-                .binary('book_cover')
+                .string('book_cover_path')
                 .notNullable();
       })
       .createTable('checkout', table => {
