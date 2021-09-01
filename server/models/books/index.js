@@ -1,12 +1,21 @@
 const db = require('../../db/connection');
 
-async function addNewBook(book) {
+async function addNewBook(title, author, description, year_published, category, ISBN, book_cover_path) {
     try {
-        const ids = await db('books').insert(book, 'id');
+        const data = {
+            title, 
+            author, 
+            description, 
+            year_published, 
+            category, 
+            ISBN,
+            book_cover_path
+        };
+        const ids = await db('books').insert(data, 'id');
         const id = ids[0];
         const response = await getBookById(id);
         return response;
-    } catch (error){
+    } catch (error) {
         console.log(error);
     };
 };
@@ -14,7 +23,7 @@ async function addNewBook(book) {
 async function getBookById(id) {
     try {
         const book = await db('books')
-            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN')
+            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
             .where({ id })
             .first()
         return book;
@@ -26,7 +35,7 @@ async function getBookById(id) {
 async function getBy(filter) {
     try {
         const books = await db('books')
-            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN')
+            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
             .where(filter)
             .first()
         return books;
@@ -34,7 +43,6 @@ async function getBy(filter) {
         console.log(error);
     };
 };
-
 
 async function getBooks() {
     const books = await db('books');

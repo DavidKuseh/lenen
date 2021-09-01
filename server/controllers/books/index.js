@@ -2,9 +2,24 @@ const Books = require('../../models/books');
 
 const addBookListing = async (req, res) => {
     try {
-        await Books.addNewBook(req.body);
-        res.redirect('/api/books/admin');
-    } catch (error) {
+        const book_cover_path = req.file.path;
+        const { title, 
+            author, 
+            description, 
+            year_published, 
+            category, 
+            ISBN
+        } = req.body;
+        await Books.addNewBook(title, 
+            author, 
+            description, 
+            year_published, 
+            category, 
+            ISBN,
+            book_cover_path )
+        res.redirect('/api/books/admin')
+    }
+    catch (error) {
         res.status(500).json({error: error.message});
     };
 };
