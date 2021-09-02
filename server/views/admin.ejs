@@ -94,7 +94,7 @@
             placeholder="Enter book ISBN"
             required
         >
-        <label for="book_cover">Upload Book Cover</label>
+        <label for="book_cover_path">Upload Book Cover</label>
         <input type="file" name="book_cover_path" />
         <button>Submit</button>
     </form>
@@ -102,6 +102,7 @@
         <% if(books != null){ %>
             <% books.forEach(book => { %>
             <a href="/api/books/<%= book.id %>">
+                <p><%= book.book_cover_path %></p>
                 <h3><%= book.title %></h3>
                 <h4><%= book.author %></h4>
                 <p><%= book.year_published %></p>

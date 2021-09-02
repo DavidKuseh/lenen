@@ -17,7 +17,7 @@ const addBookListing = async (req, res) => {
             category, 
             ISBN,
             book_cover_path )
-        res.redirect('/api/books/admin')
+        res.redirect('/api/books/admin');
     }
     catch (error) {
         res.status(500).json({error: error.message});
@@ -29,12 +29,12 @@ const getAdminPage = async (req, res) => {
         const { role } = req.decoded;
         if(role !== 'admin'){
             return res.send('not authorized')
-        }
+        };
         const books = await Books.getBooks();
         res.render('admin',  { title: 'Admin Page', books: books });
     } catch (error) {
         res.status(500).json({error: error.message});
-    }
+    };
 };
 
 const getSearchPage = async (req, res) => {
@@ -44,16 +44,16 @@ const getSearchPage = async (req, res) => {
         res.render('search-results', { title: 'Search Page', filteredBooks: filteredBooks, query: req.query});
     } catch (error) {
         res.status(500).json({error: error.message});
-    }
+    };
 };
-
 
 const getBookListing = async (req, res) => {
     const id = req.params.id;
     try {
         const book = await Books.getBookById(id);
         if(book) {
-            res.render('book-detail', { book: book, title: book.title })
+            const bookCoverImage = book.book_cover_path.slice(17)
+            res.render('book-detail', { book: book, title: book.title, bookCoverImage: bookCoverImage })
         };
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -64,7 +64,10 @@ const getAllBooks = async (req, res) => {
     try {
         const books = await Books.getBooks();
         if(books) {
-            res.render('books', { books : books , title: 'Home'})
+            books.forEach(book => {
+                const bookCoverImage = book.book_cover_path.slice(17)
+                res.render('books', { books : books , title: 'Home', bookCoverImage: bookCoverImage})
+            })
         };
     } catch (error) {
         res.status(500).json({error: error.message});
