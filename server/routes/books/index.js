@@ -6,12 +6,12 @@ const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPa
 const { validateToken } = require('../../middleware/validateToken');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '../server/public/data/uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() +  "_" + file.originalname)
-    }
+  destination: function (req, file, cb) {
+    cb(null, '../server/public/data/uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "_" + file.originalname)
+  }
 });
 
 const upload = multer({ storage: storage })
@@ -26,7 +26,7 @@ router.get('/:id', getBookListing);
 
 router.get('/', getAllBooks);
 
-router.put('/:id/edit', editBookListing);
+router.put('/:id/edit', upload.single('book_cover_path'), editBookListing);
 
 router.get('/:id/edit', getEditBookPage);
 

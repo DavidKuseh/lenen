@@ -1,44 +1,22 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 
-<body>
-    <a href="/api/books/admin">Back to admin page</a>
-    <p>Edit a book listing</p>
-        <form action="<%=`/api/books/${book.id}/edit?_method=PUT`%>" method="POST">
+    <body>
+        <a href="/api/books/admin">Back to admin page</a>
+        <p>Edit a book listing</p>
+        <form action="<%=`/api/books/${book.id}/edit?_method=PUT`%>" method="POST" enctype="multipart/form-data">
             <label for="title">Title</label>
-            <input 
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Enter book title"
-                required
-                value="<%= book.title %>"
-            >
+            <input type="text" id="title" name="title" placeholder="Enter book title" required
+                value="<%= book.title %>">
             <label for="author">Author(s)</label>
-            <input 
-                type="text"
-                id="author"
-                name="author"
-                placeholder="Enter book author(s)"
-                required
-                value="<%= book.author %>"
-            >
+            <input type="text" id="author" name="author" placeholder="Enter book author(s)" required
+                value="<%= book.author %>">
             <label for="description">Description</label>
-            <textarea
-                id="description"
-                name="description"
-                placeholder="Enter book description"
-                required
-            ><%= book.description %></textarea>
+            <textarea id="description" name="description" placeholder="Enter book description"
+                required><%= book.description %></textarea>
             <label for="year_published">Year Published</label>
-            <input 
-                type="number"
-                id="year_published"
-                name="year_published"
-                placeholder="Enter year of publication"
-                required
-                value="<%= book.year_published %>"
-            >
+            <input type="number" id="year_published" name="year_published" placeholder="Enter year of publication"
+                required value="<%= book.year_published %>">
             <label for="category">Category</label>
             <select name="category" id="category">
                 <option value="Action and adventure" selected>Action and adventure</option>
@@ -87,16 +65,12 @@
                 <option value="Western">Western</option>
             </select>
             <label for="ISBN">ISBN</label>
-            <input 
-                type="text"
-                id="ISBN"
-                name="ISBN"
-                placeholder="Enter book ISBN"
-                required
-                value="<%= book.ISBN %>"
-            >
+            <input type="text" id="ISBN" name="ISBN" placeholder="Enter book ISBN" required value="<%= book.ISBN %>">
+            <label for="book_cover_path">Update Book Cover</label>
+            <input type="file" name="book_cover_path" />
             <button type="submit">Update</button>
         </form>
-    <%- include('./partials/footer.ejs') %>
-</body>
+        <%- include('./partials/footer.ejs') %>
+    </body>
+
 </html>

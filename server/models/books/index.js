@@ -3,11 +3,11 @@ const db = require('../../db/connection');
 async function addNewBook(title, author, description, year_published, category, ISBN, book_cover_path) {
     try {
         const data = {
-            title, 
-            author, 
-            description, 
-            year_published, 
-            category, 
+            title,
+            author,
+            description,
+            year_published,
+            category,
             ISBN,
             book_cover_path
         };
@@ -23,7 +23,7 @@ async function addNewBook(title, author, description, year_published, category, 
 async function getBookById(id) {
     try {
         const book = await db('books')
-            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
+            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
             .where({ id })
             .first()
         return book;
@@ -35,7 +35,7 @@ async function getBookById(id) {
 async function getBy(filter) {
     try {
         const books = await db('books')
-            .select('id', 'title' , 'author' ,'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
+            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
             .where(filter)
             .first()
         return books;
@@ -56,7 +56,7 @@ async function getBooks() {
 async function searchBooks(query) {
     const books = db('books');
     try {
-        if(query.q){
+        if (query.q) {
             return books.whereRaw("CONCAT(title, author, description) ILIKE '%' || LOWER(?) || '%'", query.q)
         }
     } catch (error) {
@@ -64,8 +64,11 @@ async function searchBooks(query) {
     };
 };
 
-async function editBook(id, changes) {
+async function editBook(id, title, author, description, year_published, category, ISBN, book_cover_path) {
     try {
+        const changes = {
+            title, author, description, year_published, category, ISBN, book_cover_path
+        };
         await db('books')
             .where({ id })
             .update(changes)
@@ -78,7 +81,7 @@ async function editBook(id, changes) {
 async function deleteBook(id) {
     try {
         const deleted = await db('books')
-            .where({ id: id})
+            .where({ id: id })
             .delete()
         return deleted;
     } catch (error) {
