@@ -1,20 +1,37 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 
-<body>
-    <%- include('./partials/nav.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
 
-    <div>
-        <img src="/<%= bookCoverImage %>" alt="pic">
-        <h2><%= book.title %></h2>
-        <h4><%= book.author %></h4>
-        <h4>Description</h4>
-        <p><%= book.description%></p>
-        <p><%= book.year_published %></p>
-        <p><%= book.category %></p>
-        <p><%= book.ISBN %></p>
-    </div>
+            <div>
+                <img src="/<%= bookCoverImage %>" alt="<%= book.title %>">
+                <h2>
+                    <%= book.title %>
+                </h2>
+                <h4>
+                    <%= book.author %>
+                </h4>
+                <p>
+                    <%= book.description%>
+                </p>
+                <p>
+                    <b>Year: </b>
+                    <%= book.year_published %>
+                </p>
+                <p>
+                    <b>Category:</b>
+                    <%= book.category %>
+                </p>
+                <p>
+                    <b>ISBN 13:</b>
+                    <%= book.ISBN %>
+                </p>
+            </div>
 
-    <%- include('./partials/footer.ejs') %>
-</body> 
+            <p><a href="/">Back</a></p>
+
+            <%- include('./partials/footer.ejs') %>
+    </body>
+
 </html>
