@@ -1,11 +1,14 @@
 <nav>
     <div class="site-title">
-        <a href="/"><h1>Lenen</h1></a>
+        <a href="/">
+            <h1>Lenen</h1>
+        </a>
     </div>
     <% if(user){ %>
         <ul>
             <li><a href="/">Home</a></li>
-            <li>Welcome, <%= user.email %></li>
+            <li>Welcome, <%= user.email %>
+            </li>
             <li><a href="/api/auth/profile">Profile</a></li>
             <li><a href="/api/books/admin">Admin</a></li>
             <li><a href="/api/auth/logout">Logout</a></li>
@@ -15,5 +18,5 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/api/auth/register">Sign Up or Log In</a></li>
             </ul>
-        <% } %>
+            <% } %>
 </nav>

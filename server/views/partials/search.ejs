@@ -1,21 +1,12 @@
 <html lang="en">
 <%- include('./head.ejs') %>
 
-<body>
-    <form action="/api/books/search" method="GET">
-        <label for="search"></label>
-        <input 
-            type="search"
-            id="search"
-            name="q"
-            placeholder="Search by title, author or description"
-        >
-        <button>Search</button>
-    </form>
-</body>
+    <body>
+        <form action="/api/books/search" method="GET">
+            <label for="search"></label>
+            <input type="search" id="search" name="q" placeholder="Search by title, author or description">
+            <button>Search</button>
+        </form>
+    </body>
+
 </html>
-
-
-
-
-
