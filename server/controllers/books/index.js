@@ -8,7 +8,8 @@ const addBookListing = async (req, res) => {
             description,
             year_published,
             category,
-            ISBN
+            ISBN,
+            price
         } = req.body;
         await Books.addNewBook(title,
             author,
@@ -16,6 +17,7 @@ const addBookListing = async (req, res) => {
             year_published,
             category,
             ISBN,
+            price,
             book_cover_path)
         res.redirect('/api/books/admin');
     }
@@ -89,7 +91,8 @@ const editBookListing = async (req, res) => {
             description,
             year_published,
             category,
-            ISBN
+            ISBN,
+            price
         } = req.body;
         await Books.editBook(id,
             title,
@@ -98,6 +101,7 @@ const editBookListing = async (req, res) => {
             year_published,
             category,
             ISBN,
+            price,
             book_cover_path);
         await Books.getBookById(id)
         res.redirect('/api/books/admin')

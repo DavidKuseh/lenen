@@ -1,6 +1,6 @@
 const db = require('../../db/connection');
 
-async function addNewBook(title, author, description, year_published, category, ISBN, book_cover_path) {
+async function addNewBook(title, author, description, year_published, category, ISBN, price, book_cover_path) {
     try {
         const data = {
             title,
@@ -9,6 +9,7 @@ async function addNewBook(title, author, description, year_published, category, 
             year_published,
             category,
             ISBN,
+            price,
             book_cover_path
         };
         const ids = await db('books').insert(data, 'id');
@@ -23,7 +24,7 @@ async function addNewBook(title, author, description, year_published, category, 
 async function getBookById(id) {
     try {
         const book = await db('books')
-            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
+            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'price', 'book_cover_path')
             .where({ id })
             .first()
         return book;
@@ -35,7 +36,7 @@ async function getBookById(id) {
 async function getBy(filter) {
     try {
         const books = await db('books')
-            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'book_cover_path')
+            .select('id', 'title', 'author', 'description', 'year_published', 'category', 'ISBN', 'price', 'book_cover_path')
             .where(filter)
             .first()
         return books;
@@ -64,10 +65,10 @@ async function searchBooks(query) {
     };
 };
 
-async function editBook(id, title, author, description, year_published, category, ISBN, book_cover_path) {
+async function editBook(id, title, author, description, year_published, category, ISBN, price, book_cover_path) {
     try {
         const changes = {
-            title, author, description, year_published, category, ISBN, book_cover_path
+            title, author, description, year_published, category, ISBN, price, book_cover_path
         };
         await db('books')
             .where({ id })

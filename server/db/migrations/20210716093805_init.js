@@ -48,6 +48,10 @@ exports.up = function(knex) {
                 .notNullable()
                 .unique();
             table
+                .decimal('price', 5, 2)
+                .notNullable()
+                .defaultTo(0);
+            table
                 .string('book_cover_path')
                 .notNullable();
       })
