@@ -88,6 +88,30 @@ exports.up = function(knex) {
             table
                 .timestamp('date_of_return')
       })
+      .createTable('cart', table => {
+            table
+                .increments();
+            table
+                .integer('userId')
+                .unsigned()
+                .references('users.id');
+            table
+                .timestamp('date_created');
+      })
+      .createTable('cart_item', table => {
+            table
+                .increments();
+            table
+                .integer('cartId')
+                .unsigned()
+                .references('cart.id')
+            table
+                .integer('bookId')
+                .unsigned()
+                .references('book.id')
+            table
+                .timestamp('date_added');
+      })
 };
 
 exports.down = function(knex) {
