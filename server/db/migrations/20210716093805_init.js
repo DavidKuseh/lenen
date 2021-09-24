@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+exports.up = function (knex) {
     return knex.schema
         .createTable('roles', table => {
             table
@@ -15,7 +15,7 @@ exports.up = function(knex) {
                 .string('email', 128)
                 .notNullable()
                 .unique();
-            table   
+            table
                 .string('password', 128)
                 .notNullable()
             table
@@ -24,8 +24,8 @@ exports.up = function(knex) {
                 .references('roles.id')
                 .onUpdate('CASCADE')
                 .defaultTo(2)
-      })
-      .createTable('books', table => {
+        })
+        .createTable('books', table => {
             table
                 .increments();
             table
@@ -54,8 +54,34 @@ exports.up = function(knex) {
             table
                 .string('book_cover_path')
                 .notNullable();
-      })
-      .createTable('checkout', table => {
+        })
+        .createTable('cart', table => {
+            table
+                .increments();
+            table
+                .integer('userId')
+                .unsigned()
+                .references('users.id');
+            table
+                .timestamp('date_created')
+                .defaultTo(knex.fn.now());
+        })
+        .createTable('cart_item', table => {
+            table
+                .increments();
+            table
+                .integer('cartId')
+                .unsigned()
+                .references('cart.id')
+            table
+                .integer('bookId')
+                .unsigned()
+                .references('books.id')
+            table
+                .timestamp('date_added')
+                .defaultTo(knex.fn.now());
+        })
+        .createTable('checkout', table => {
             table
                 .increments();
             table
@@ -71,8 +97,8 @@ exports.up = function(knex) {
             table
                 .date('due_date')
                 .defaultTo(knex.raw(`? + ?::INTERVAL`, [knex.fn.now(), '30 day']));
-      })
-      .createTable('rental', table => {
+        })
+        .createTable('rental', table => {
             table
                 .increments();
             table
@@ -87,38 +113,14 @@ exports.up = function(knex) {
                 .unique(['id', 'borrowId', 'bookId']);
             table
                 .timestamp('date_of_return')
-      })
-      .createTable('cart', table => {
-            table
-                .increments();
-            table
-                .integer('userId')
-                .unsigned()
-                .references('users.id');
-            table
-                .timestamp('date_created');
-      })
-      .createTable('cart_item', table => {
-            table
-                .increments();
-            table
-                .integer('cartId')
-                .unsigned()
-                .references('cart.id')
-            table
-                .integer('bookId')
-                .unsigned()
-                .references('book.id')
-            table
-                .timestamp('date_added');
-      })
+        })
 };
 
-exports.down = function(knex) {
-  return knex.schema
-    .dropTableIfExists('users')
-    .dropTableIfExists('roles')
-    .dropTableIfExists('books')
-    .dropTableIfExists('checkout')
-    .dropTableIfExists('rental');
+exports.down = function (knex) {
+    return knex.schema
+        .dropTableIfExists('users')
+        .dropTableIfExists('roles')
+        .dropTableIfExists('books')
+        .dropTableIfExists('checkout')
+        .dropTableIfExists('rental');
 };
