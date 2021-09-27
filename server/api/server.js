@@ -1,32 +1,31 @@
 require('dotenv').config();
 
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-const methodOverride = require('method-override');
-const authRouter = require('../routes/auth');
-const bookRouter = require('../routes/books');
-const Books = require('../models/books');
-const { checkUser } = require('../middleware/validateToken');
+import express, { static, json, urlencoded } from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import methodOverride from 'method-override';
+import authRouter from '../routes/auth';
+import bookRouter from '../routes/books';
+import { getBooks } from '../models/books';
+import { checkUser } from '../middleware/validateToken';
 
 const server = express();
 
-server.use(express.static("public"));
+server.use(static("public"));
 server.set('view engine', 'ejs');
-server.use(express.json());
+server.use(json());
 server.use(helmet());
 server.use(cors());
-server.use(express.urlencoded({ extended: true }))
+server.use(urlencoded({ extended: true }))
 server.use(methodOverride('_method', {
     methods: ['POST']
 }));
 
 server.get('*', checkUser);
 server.get( '/', async (req, res) => {
-    const books = await Books.getBooks();
+    const books = await getBooks();
     res.render('index', { title: 'Home', books: books });
 });
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
-
-module.exports = server;
+export default server;
