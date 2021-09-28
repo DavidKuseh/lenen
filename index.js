@@ -1,4 +1,4 @@
-const server = require("./api/server");
+import { server } from "./api/server";
 
 const port = 4000;
 

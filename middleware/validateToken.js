@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = require("../config/secrets");
+const secret = require("../server/config/secrets");
 const User = require('../models/auth');
 
 function validateToken(req, res, next) {

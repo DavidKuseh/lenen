@@ -1,4 +1,6 @@
+import bcrypt from 'bcryptjs';
 const bcrypt = require("bcryptjs");
+
 const { generateToken } = require("../../helpers/token");
 const Users = require('../../models/auth');
 
