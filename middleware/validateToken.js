@@ -1,12 +1,12 @@
-const jwt = require("jsonwebtoken");
-const secret = require("../server/config/secrets");
-const User = require('../models/auth');
+import verify from "jsonwebtoken";
+import { jwtSecret } from "../config/secrets.js";
+import User from '../models/auth/auth.js';
 
 function validateToken(req, res, next) {
   const token = localStorage.getItem('token');
 
   if (token) {
-    jwt.verify(token, secret.jwtSecret, (err, decoded) => {
+    verify(token, jwtSecret, (err, decoded) => {
       if (err) {
         res
           .status(401)
@@ -30,7 +30,7 @@ async function checkUser(req, res, next) {
   const token = localStorage.getItem('token');
 
   if (token) {
-    jwt.verify(token, secret.jwtSecret, async (err, decoded) => {
+    verify(token, jwtSecret, async (err, decoded) => {
       if (err) {
         res.locals.user = null;
         next();
@@ -46,7 +46,7 @@ async function checkUser(req, res, next) {
   };
 };
 
-module.exports = { validateToken, checkUser };
+export default { validateToken, checkUser };
 
 
 

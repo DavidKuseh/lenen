@@ -1,22 +1,22 @@
 require('dotenv').config();
 
-import express, { static, json, urlencoded } from 'express';
+import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import methodOverride from 'method-override';
-import authRouter from '../routes/auth';
-import bookRouter from '../routes/books';
-import { getBooks } from '../models/books';
-import { checkUser } from '../middleware/validateToken';
+import authRouter from '../routes/auth/auth.js';
+import bookRouter from '../routes/books/books.js';
+import getBooks from '../models/books/books.js';
+import checkUser from '../middleware/validateToken.js';
 
 const server = express();
 
-server.use(static("public"));
+server.use(express.static("public"));
 server.set('view engine', 'ejs');
-server.use(json());
+server.use(express.json());
 server.use(helmet());
 server.use(cors());
-server.use(urlencoded({ extended: true }))
+server.use(express.urlencoded({ extended: true }))
 server.use(methodOverride('_method', {
     methods: ['POST']
 }));
