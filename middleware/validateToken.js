@@ -1,12 +1,12 @@
-import verify from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import { jwtSecret } from "../config/secrets.js";
 import User from '../models/auth/auth.js';
 
-function validateToken(req, res, next) {
+export function validateToken(req, res, next) {
   const token = localStorage.getItem('token');
 
   if (token) {
-    verify(token, jwtSecret, (err, decoded) => {
+    jsonwebtoken.verify(token, jwtSecret, (err, decoded) => {
       if (err) {
         res
           .status(401)
@@ -26,11 +26,11 @@ function validateToken(req, res, next) {
   };
 };
 
-async function checkUser(req, res, next) {
+export async function checkUser(req, res, next) {
   const token = localStorage.getItem('token');
 
   if (token) {
-    verify(token, jwtSecret, async (err, decoded) => {
+    jsonwebtoken.verify(token, jwtSecret, async (err, decoded) => {
       if (err) {
         res.locals.user = null;
         next();
