@@ -1,6 +1,6 @@
-const Books = require('../../models/books');
+import Books from '../../models/books/books.js';
 
-const addBookListing = async (req, res) => {
+export const addBookListing = async (req, res) => {
     try {
         const book_cover_path = req.file.path;
         const { title,
@@ -26,7 +26,7 @@ const addBookListing = async (req, res) => {
     };
 };
 
-const getAdminPage = async (req, res) => {
+export const getAdminPage = async (req, res) => {
     try {
         const { role } = req.decoded;
         if (role !== 'admin') {
@@ -39,7 +39,7 @@ const getAdminPage = async (req, res) => {
     };
 };
 
-const getSearchPage = async (req, res) => {
+export const getSearchPage = async (req, res) => {
     try {
         const { q } = req.query;
         const filteredBooks = await Books.searchBooks({ q });
@@ -49,7 +49,7 @@ const getSearchPage = async (req, res) => {
     };
 };
 
-const getBookListing = async (req, res) => {
+export const getBookListing = async (req, res) => {
     const id = req.params.id;
     try {
         const book = await Books.getBookById(id);
@@ -62,7 +62,7 @@ const getBookListing = async (req, res) => {
     };
 };
 
-const getAllBooks = async (req, res) => {
+export const getAllBooks = async (req, res) => {
     try {
         const books = await Books.getBooks();
         res.render('books', { books: books, title: 'Home' })
@@ -71,7 +71,7 @@ const getAllBooks = async (req, res) => {
     };
 };
 
-const getEditBookPage = async (req, res) => {
+export const getEditBookPage = async (req, res) => {
     const id = req.params.id;
     try {
         const book = await Books.getBookById(id)
@@ -81,7 +81,7 @@ const getEditBookPage = async (req, res) => {
     };
 };
 
-const editBookListing = async (req, res) => {
+export const editBookListing = async (req, res) => {
     const id = req.params.id;
     try {
         const book_cover_path = req.file.path;
@@ -110,7 +110,7 @@ const editBookListing = async (req, res) => {
     };
 };
 
-const deleteBookListing = async (req, res) => {
+export const deleteBookListing = async (req, res) => {
     const id = req.params.id;
     try {
         const book = await Books.deleteBook(id);
@@ -120,15 +120,4 @@ const deleteBookListing = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     };
-};
-
-module.exports = {
-    addBookListing,
-    getAdminPage,
-    getBookListing,
-    getAllBooks,
-    getEditBookPage,
-    editBookListing,
-    deleteBookListing,
-    getSearchPage
 };

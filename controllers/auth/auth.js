@@ -1,24 +1,21 @@
 import bcrypt from 'bcryptjs';
-const bcrypt = require("bcryptjs");
+import { LocalStorage } from 'node-localstorage';
+import generateToken from '../../helpers/token.js';
+import Users from '../../models/auth/auth.js';
 
-const { generateToken } = require("../../helpers/token");
-const Users = require('../../models/auth');
+global.localStorage = new LocalStorage('./scratch');
 
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-}
-const getRegisterPage = async (req, res) => {
+export const getRegisterPage = async (req, res) => {
     res.render('register', {title: 'Register'});
 };
 
-const getLoginPage = async (req, res) => {
+export const getLoginPage = async (req, res) => {
     res.render('login', {title: 'Login'});
 };
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
     const {password} = req.body;
-    const hash = await bcrypt.hashSync(password, 10);
+    const hash = bcrypt.hashSync(password, 10);
     req.body.password = hash;
 
     try {
@@ -30,7 +27,7 @@ const register = async (req, res) => {
     };
 };
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const token = generateToken(req.user);
         const user = req.user;
@@ -43,7 +40,7 @@ const login = async (req, res) => {
     };
 };
 
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
     try {
         localStorage.removeItem('token');
         localStorage.removeItem('userEmail');
@@ -53,31 +50,21 @@ const logout = async (req, res) => {
     };
 };
 
-const getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
     const { subject } = req.decoded;
     try {
         const profile = await Users.getUserById(subject);
-        res.render('user-profile', { title: 'My Profile', profile: profile })
+        res.render('user-profile', { title: 'My Profile', profile: profile });
     } catch (error) {
         res.status(500).json({error: error.message});
     };
 };
 
-const findUsers = async (req, res) => {
+export const findUsers = async (req, res) => {
     try {
         const users = await Users.getUsers()
-        res.status(200).json(users)
+        res.status(200).json(users);
     } catch (error) {
         res.status(500).json({error: error.message});
     };
-};
-
-module.exports = {
-    getRegisterPage,
-    getLoginPage,
-    register,
-    login,
-    logout,
-    getProfile,
-    findUsers
 };

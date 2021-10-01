@@ -1,4 +1,4 @@
-const db = require('../../db/connection');
+import db from '../../db/connection.js';
 
 async function addNewUser(user) {
     try {
@@ -46,7 +46,7 @@ async function getUsers() {
     }
 }
 
-module.exports = {
+export default {
     addNewUser,
     getUserById,
     getBy,

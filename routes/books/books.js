@@ -1,13 +1,15 @@
-const router = require('express').Router();
-const multer = require('multer');
+import { Router as expressRouter } from 'express';
+import multer, { diskStorage } from 'multer';
 
-const { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing, getSearchPage } = require('../../controllers/books');
+const router = expressRouter();
 
-const { validateToken } = require('../../middleware/validateToken');
+import { addBookListing, getAdminPage, getBookListing, getAllBooks, getEditBookPage, editBookListing, deleteBookListing, getSearchPage } from '../../controllers/books/books.js';
 
-const storage = multer.diskStorage({
+import { validateToken } from '../../middleware/validateToken.js';
+
+const storage = diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../server/public/data/uploads/')
+    cb(null, './public/data/uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "_" + file.originalname)
@@ -32,4 +34,4 @@ router.get('/:id/edit', getEditBookPage);
 
 router.delete('/:id/delete', deleteBookListing);
 
-module.exports = router;
+export default router;

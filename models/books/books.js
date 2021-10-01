@@ -1,4 +1,4 @@
-const db = require('../../db/connection');
+import db from '../../db/connection.js';
 
 async function addNewBook(title, author, description, year_published, category, ISBN, price, book_cover_path) {
     try {
@@ -45,7 +45,7 @@ async function getBy(filter) {
     };
 };
 
-async function getBooks() {
+export async function getBooks() {
     const books = await db('books');
     try {
         return books;
@@ -90,7 +90,7 @@ async function deleteBook(id) {
     };
 };
 
-module.exports = {
+export default {
     addNewBook,
     getBookById,
     getBy,
