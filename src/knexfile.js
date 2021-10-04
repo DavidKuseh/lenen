@@ -18,7 +18,22 @@ export const development = {
   },
   seeds: {
     directory: './db/seeds'
+  }
+};
+export const staging = {
+  client: 'postgresql',
+  connection: {
+    database: 'my_db',
+    user: 'username',
+    password: 'password'
   },
+  pool: {
+    min: 2,
+    max: 10
+  },
+  migrations: {
+    tableName: 'knex_migrations'
+  }
 };
 export const production = {
   client: 'postgresql',
@@ -35,4 +50,3 @@ export const production = {
     tableName: 'knex_migrations'
   }
 };
-
