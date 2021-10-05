@@ -1,7 +1,7 @@
-import sign from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { jwtSecret } from "../config/secrets.js";
 
-function generateToken(user){
+export default function generateToken(user){
     const payload = {
         subject: user.id,
         role: user.role
@@ -9,7 +9,5 @@ function generateToken(user){
     const options = {
         expiresIn: "30d"
     };
-    return sign(payload, jwtSecret, options)
-}
-
-export default {generateToken};
+    return jwt.sign(payload, jwtSecret, options)
+};
