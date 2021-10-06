@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import { jwtSecret } from "../config/secrets.js";
-import User from '../models/auth/auth.js';
+import { getUserById } from '../models/auth/auth.js';
 
 export function validateToken(req, res, next) {
   const token = localStorage.getItem('token');
@@ -35,7 +35,7 @@ export async function checkUser(req, res, next) {
         res.locals.user = null;
         next();
       } else {
-        let user = await User.getUserById(decoded.subject);
+        let user = await getUserById(decoded.subject);
         res.locals.user = user;
         next();
       }

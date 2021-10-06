@@ -45,7 +45,7 @@ async function getBy(filter) {
     };
 };
 
-export async function getBooks() {
+async function getBooks() {
     const books = await db('books');
     try {
         return books;
@@ -90,7 +90,7 @@ async function deleteBook(id) {
     };
 };
 
-export default {
+export {
     addNewBook,
     getBookById,
     getBy,

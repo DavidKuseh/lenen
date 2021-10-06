@@ -8,8 +8,8 @@ async function addNewUser(user) {
         return response;
     } catch (error) {
         console.log(error);
-    }
-}
+    };
+};
 
 async function getUserById(id) {
     try {
@@ -17,11 +17,11 @@ async function getUserById(id) {
             .select('id', 'email', 'role')
             .where({id: id})
             .first();
-        return user
+        return user;
     } catch (error) {
-        console.log(error)
-    }
-}
+        console.log(error);
+    };
+};
 
 async function getBy(filter) {
     try {
@@ -29,12 +29,12 @@ async function getBy(filter) {
         .join('roles as r', 'u.role', '=', 'r.id')
         .select('u.id', 'u.password', 'r.name as role', 'u.email')
         .where(filter)
-        .first()
+        .first();
         return user;
     } catch(error) {
         console.log(error)
-    }
-}
+    };
+};
 
 async function getUsers() {
     try {
@@ -43,12 +43,13 @@ async function getUsers() {
         return users;
     } catch (error) {
         console.log(error)
-    }
-}
+    };
+};
 
-export default {
+export {
     addNewUser,
     getUserById,
     getBy,
     getUsers
-}
+};
+

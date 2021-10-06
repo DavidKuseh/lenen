@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { LocalStorage } from 'node-localstorage';
 import generateToken from '../../helpers/token.js';
-import Users from '../../models/auth/auth.js';
+import * as Users from '../../models/auth/auth.js';
 
-global.localStorage = new LocalStorage('./scratch');
+global.localStorage = new LocalStorage('./src/scratch');
 
 export const getRegisterPage = async (req, res) => {
     res.render('register', {title: 'Register'});
