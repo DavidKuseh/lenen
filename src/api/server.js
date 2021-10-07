@@ -12,7 +12,7 @@ import { checkUser } from '../middleware/validateToken.js';
 
 const server = express();
 
-server.use(express.static('src/public'));
+server.use(express.static('./src/public'));
 server.set('view engine', 'ejs');
 server.set('views', './src/views');
 server.use(express.json());

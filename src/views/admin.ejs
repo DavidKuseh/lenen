@@ -76,7 +76,7 @@
             <% if(books !=null){ %>
                 <% books.forEach(book=> { %>
                     <a href="/api/books/<%= book.id %>">
-                        <img src="/<%= book.book_cover_path.slice(17) %>" alt="<%= book.title %>">
+                        <img src="/<%= book.book_cover_path.slice(11) %>" alt="<%= book.title %>">
 
                         <h3>
                             <%= book.title %>

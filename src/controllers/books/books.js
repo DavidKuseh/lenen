@@ -54,8 +54,8 @@ export const getBookListing = async (req, res) => {
     try {
         const book = await Books.getBookById(id);
         if (book) {
-            const bookCoverImage = book.book_cover_path.slice(17)
-            res.render('book-detail', { book: book, title: book.title, bookCoverImage: bookCoverImage })
+            const bookCoverImage = book.book_cover_path.slice(11);
+            res.render('book-detail', { book: book, title: book.title, bookCoverImage: bookCoverImage });
         };
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -65,7 +65,7 @@ export const getBookListing = async (req, res) => {
 export const getAllBooks = async (req, res) => {
     try {
         const books = await Books.getBooks();
-        res.render('books', { books: books, title: 'Home' })
+        res.render('books', { books: books, title: 'Home' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     };
@@ -103,8 +103,8 @@ export const editBookListing = async (req, res) => {
             ISBN,
             price,
             book_cover_path);
-        await Books.getBookById(id)
-        res.redirect('/api/books/admin')
+        await Books.getBookById(id);
+        res.redirect('/api/books/admin');
     } catch (error) {
         res.status(500).json({ error: error.message });
     };

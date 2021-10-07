@@ -9,7 +9,8 @@ import { validateToken } from '../../middleware/validateToken.js';
 
 const storage = diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/data/uploads/')
+    cb(null, './src/public/data/uploads/')
+
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "_" + file.originalname)
