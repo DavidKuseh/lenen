@@ -7,6 +7,7 @@ import cors from 'cors';
 import methodOverride from 'method-override';
 import authRouter from '../routes/auth/auth.js';
 import bookRouter from '../routes/books/books.js';
+import cartRouter from '../routes/cart/cart.js';
 import { getBooks } from '../models/books/books.js';
 import { checkUser } from '../middleware/validateToken.js';
 
@@ -30,5 +31,6 @@ server.get('/', async (req, res) => {
 });
 server.use('/api/auth', authRouter);
 server.use('/api/books', bookRouter);
+server.use('/api/cart', cartRouter);
 
 export default server;
