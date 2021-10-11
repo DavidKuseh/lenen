@@ -17,13 +17,13 @@ exports.up = function (knex) {
                 .unique();
             table
                 .string('password', 128)
-                .notNullable()
+                .notNullable();
             table
                 .integer('role')
                 .unsigned()
                 .references('roles.id')
                 .onUpdate('CASCADE')
-                .defaultTo(2)
+                .defaultTo(2);
         })
         .createTable('books', table => {
             table
@@ -59,9 +59,11 @@ exports.up = function (knex) {
             table
                 .increments();
             table
-                .integer('userId')
+                .integer('user_id')
                 .unsigned()
                 .references('users.id');
+            table
+                .timestamp('modified_on');
             table
                 .timestamp('date_created')
                 .defaultTo(knex.fn.now());
@@ -70,13 +72,13 @@ exports.up = function (knex) {
             table
                 .increments();
             table
-                .integer('cartId')
+                .integer('cart_id')
                 .unsigned()
-                .references('cart.id')
+                .references('cart.id');
             table
-                .integer('bookId')
+                .integer('book_id')
                 .unsigned()
-                .references('books.id')
+                .references('books.id');
             table
                 .timestamp('date_added')
                 .defaultTo(knex.fn.now());
@@ -85,7 +87,7 @@ exports.up = function (knex) {
             table
                 .increments();
             table
-                .integer('renterId')
+                .integer('renter_id')
                 .unsigned()
                 .references('users.id')
                 .onUpdate('CASCADE');
@@ -93,7 +95,7 @@ exports.up = function (knex) {
                 .timestamp('borrow_date')
                 .defaultTo(knex.fn.now());
             table
-                .integer('price')
+                .integer('price');
             table
                 .date('due_date')
                 .defaultTo(knex.raw(`? + ?::INTERVAL`, [knex.fn.now(), '30 day']));
@@ -102,17 +104,17 @@ exports.up = function (knex) {
             table
                 .increments();
             table
-                .integer('borrowId')
+                .integer('borrow_id')
                 .references('checkout.id')
                 .onUpdate('CASCADE');
             table
-                .integer('bookId')
+                .integer('book_id')
                 .references('books.id')
                 .onUpdate('CASCADE');
             table
-                .unique(['id', 'borrowId', 'bookId']);
+                .unique(['id', 'borrow_id', 'book_id']);
             table
-                .timestamp('date_of_return')
+                .timestamp('date_of_return');
         })
 };
 
