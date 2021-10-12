@@ -1,4 +1,4 @@
-exports.up = function (knex) {
+export function up (knex) {
     return knex.schema
         .createTable('roles', table => {
             table
@@ -116,13 +116,13 @@ exports.up = function (knex) {
             table
                 .timestamp('date_of_return');
         })
-};
+}
 
-exports.down = function (knex) {
+export function down (knex) {
     return knex.schema
         .dropTableIfExists('users')
         .dropTableIfExists('roles')
         .dropTableIfExists('books')
         .dropTableIfExists('checkout')
         .dropTableIfExists('rental');
-};
+}
