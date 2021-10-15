@@ -63,24 +63,15 @@ export function up (knex) {
                 .unsigned()
                 .references('users.id');
             table
-                .timestamp('modified_on');
+                .specificType('book_ids', 'integer ARRAY');
+            table
+                .integer('cost')
+                .unsigned();
+            table
+                .integer('number_of_items')
+                .unsigned();
             table
                 .timestamp('date_created')
-                .defaultTo(knex.fn.now());
-        })
-        .createTable('cart_item', table => {
-            table
-                .increments();
-            table
-                .integer('cart_id')
-                .unsigned()
-                .references('cart.id');
-            table
-                .integer('book_id')
-                .unsigned()
-                .references('books.id');
-            table
-                .timestamp('date_added')
                 .defaultTo(knex.fn.now());
         })
         .createTable('checkout', table => {
