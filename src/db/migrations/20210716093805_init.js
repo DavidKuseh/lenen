@@ -65,6 +65,8 @@ export function up (knex) {
             table
                 .specificType('book_ids', 'integer ARRAY');
             table
+                .specificType('quantity_array', 'integer ARRAY');
+            table
                 .integer('cost')
                 .unsigned();
             table
