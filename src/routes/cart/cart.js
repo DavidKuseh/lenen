@@ -2,9 +2,9 @@ import { Router as expressRouter } from 'express';
 
 const router = expressRouter();
 
-import { addBooksToCart, getCartPage } from '../../controllers/cart/cart.js';
+import { addBookToCart, getCartPage } from '../../controllers/cart/cart.js';
 
-router.post('/', addBooksToCart);
+router.post('/', addBookToCart);
 
 router.get('/', getCartPage);
 
