@@ -1,10 +1,11 @@
 import db from '../../db/connection.js';
 
-async function addToCart(user_id, book_id, cost, number_of_items) {
+async function addToCart(user_id, book_id, quantity, cost, number_of_items) {
     try {
         const cartInfo = {
             user_id,
             book_id,
+            quantity,
             cost,
             number_of_items
         }
