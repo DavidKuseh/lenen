@@ -9,7 +9,8 @@
     "migrate:latest": "knex --knexfile=./src/knexfile.js migrate:latest",
     "migrate:down": "knex --knexfile=./src/knexfile.js migrate:down",
     "migrate:up": "knex --knexfile=./src/knexfile.js migrate:up",
-    "seed:run": "knex --knexfile=./src/knexfile.js seed:run"
+    "seed:run": "knex --knexfile=./src/knexfile.js seed:run",
+    "nodemon": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,7 @@
     "method-override": "^3.0.0",
     "multer": "^1.4.3",
     "node-localstorage": "^2.2.1",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.14",
     "path": "^0.12.7",
     "pg": "^8.6.0",
     "postgres-bytea": "^3.0.0"

@@ -7,9 +7,9 @@ export const addBookToCart = async (req, res) => {
 
         const { book_id } = req.params;
 
-        const { user_id } = req.user;
+        const { id } = req.user;
 
-        const cartExists = await Cart.getCartById(user_id);
+        const cartExists = await Cart.getCartById(id);
 
         if (cartExists == null || cartExists.length == 0 || cartExists == []) {
             const bookDetails = await Book.getBookById(book_id);

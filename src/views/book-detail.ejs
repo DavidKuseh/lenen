@@ -5,7 +5,6 @@
 
             <div>
                 <img src="/<%= bookCoverImage %>" alt="<%= book.title %>">
-                <p id="book-id" hidden><%= book.id %></p>
                 <h2>
                     <%= book.title %>
                 </h2>
@@ -27,19 +26,27 @@
                     <b>ISBN 13:</b>
                     <%= book.ISBN %>
                 </span>
-            </div>
-
-            <div>
                 <span>Rent</p>
                     <span>$</span><span id="book-price">
                         <%= book.price %>
                     </span>
+                </div>
+                
+                <div>
                     <% if(user) { %>
-                        <button id="cart-btn" >Add to cart</button>
-                    <% } else { %>
-                        <a href="/api/auth/login"><button id="cart-btn-2">Add to cart</button></a>
-                    <% } %>
-            </div>
+                        <% console.log(user) %>
+                        <button type="submit" id="cart-btn" >Add to cart</button>
+                        <% } else { %>
+                            <a href="/api/auth/login"><button id="cart-btn-2">Add to cart</button></a>
+                        <% } %>
+                </div>
+
+                        
+            <form action="/api/cart" method="post">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <input type="number" required name="quantity" placeholder="quantity" min="0" max="1">
+
+            </form>
 
             <p><a href="/">Back</a></p>
 
