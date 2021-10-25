@@ -4,7 +4,9 @@ const router = expressRouter();
 
 import { addBookToCart, getCartPage } from '../../controllers/cart/cart.js';
 
-router.post('/', addBookToCart);
+import { validateToken } from '../../middleware/validateToken.js';
+
+router.post('/', validateToken, addBookToCart);
 
 router.get('/', getCartPage);
 

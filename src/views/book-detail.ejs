@@ -8,7 +8,7 @@
                 <h2>
                     <%= book.title %>
                 </h2>
-                <h4 >
+                <h4>
                     <%= book.author %>
                 </h4>
                 <p>
@@ -30,21 +30,19 @@
                     <span>$</span><span id="book-price">
                         <%= book.price %>
                     </span>
-                </div>
-                
+            </div>
+
+            <form action="/api/cart" method="post">
+                <input type="hidden" name="book_id" id="book_id" value="<%= book.id %>">
+                <input type="number" required name="quantity" id="quantity" placeholder="quantity" min="0" max="1">
+
                 <div>
                     <% if(user) { %>
-                        <% console.log(user) %>
-                        <button type="submit" id="cart-btn" >Add to cart</button>
+                        <button type="submit" id="cart-btn">Add to cart</button>
                         <% } else { %>
                             <a href="/api/auth/login"><button id="cart-btn-2">Add to cart</button></a>
-                        <% } %>
+                            <% } %>
                 </div>
-
-                        
-            <form action="/api/cart" method="post">
-                <input type="hidden" name="book_id" value="<%= book.id %>">
-                <input type="number" required name="quantity" placeholder="quantity" min="0" max="1">
 
             </form>
 
