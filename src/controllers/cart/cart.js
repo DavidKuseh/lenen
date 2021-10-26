@@ -5,11 +5,11 @@ export const addBookToCart = async (req, res) => {
     try {
         const { quantity } = req.body;
 
-        const { book_id } = req.params;
+        const { book_id } = req.body;
 
-        const { id } = req.user;
+        const { subject } = req.decoded;
 
-        const cartExists = await Cart.getCartById(id);
+        const cartExists = await Cart.getCartById(subject);
 
         if (cartExists == null || cartExists.length == 0 || cartExists == []) {
             const bookDetails = await Book.getBookById(book_id);
@@ -21,7 +21,7 @@ export const addBookToCart = async (req, res) => {
             quantityArray = [quantity];
 
             const added = await Cart.addToCart({
-                user_id: req.user.id,
+                user_id: req.decoded.subject,
                 book_ids: booksArray,
                 quantity_array: quantityArray,
                 cost,
@@ -56,7 +56,7 @@ export const addBookToCart = async (req, res) => {
                     user_cart[0].number_of_items = user_cart[0].number_of_items + 1;
                     user_cart[0].cost = user_cart[0].cost + newCost;
                 } catch (error) {
-                    res.status(500).json({ error: error.message });
+                    res.status(500).json({ error: error.message} );
                 }
             }
         }
