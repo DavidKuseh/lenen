@@ -67,11 +67,13 @@ export function up (knex) {
             table
                 .specificType('quantity_array', 'integer ARRAY');
             table
-                .integer('cost')
-                .unsigned();
+                .decimal('cost', 6, 2)
+                .notNullable()
+                .defaultTo(0);
             table
                 .integer('number_of_items')
-                .unsigned();
+                .notNullable()
+                .defaultTo(0);
             table
                 .timestamp('date_created')
                 .defaultTo(knex.fn.now());
