@@ -29,7 +29,7 @@ export const addBookToCart = async (req, res) => {
             });
             res.status(201).json({ 'success': added });
         } else {
-            const user_cart = await Cart.getCartById(user_id);
+            const user_cart = await Cart.getCartById(subject);
             var countForIfBookAlreadyExists = 0;
 
             user_cart[0].book_ids.forEach(b_id => {
