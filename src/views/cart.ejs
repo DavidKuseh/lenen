@@ -2,17 +2,22 @@
 <%- include('./partials/head.ejs') %>
 
     <body>
-        <%- include('./partials/nav.ejs') %>
 
-            <%- include('./partials/search.ejs') %>
+        <%- include('./partials/search.ejs') %>
 
-                <div>
-                    <p>Cart page</p>
-                </div>
+            <div>
+                <p>Cart page</p>
+                <% if(!cart) {%>
+                    <p>Cart is empty</p>
+                    <% } else { %>
+                        <p>Total Cost: <%= cart.cost %>
+                        </p>
+                        <% } %>
+            </div>
 
-                <p><a href="/">Back</a></p>
+            <p><a href="/">Back</a></p>
 
-                <%- include('./partials/footer.ejs') %>
+            <%- include('./partials/footer.ejs') %>
     </body>
 
 </html>

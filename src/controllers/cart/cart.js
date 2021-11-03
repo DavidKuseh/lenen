@@ -20,14 +20,14 @@ export const addBookToCart = async (req, res) => {
             booksArray.push(book_id);
             quantityArray = [quantity];
 
-            const added = await Cart.addToCart({
+            const cart = await Cart.addToCart({
                 user_id: req.decoded.subject,
                 book_ids: booksArray,
                 quantity_array: quantityArray,
                 cost,
                 number_of_items: booksArray.length
             });
-            res.status(201).json({ 'success': added });
+            res.render('cart', { title: 'Cart', cart: cart })
         } else {
             const user_cart = await Cart.getCartById(subject);
             var countForIfBookAlreadyExists = 0;
@@ -60,14 +60,6 @@ export const addBookToCart = async (req, res) => {
                 }
             }
         }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    };
-};
-
-export const getCartPage = async (req, res) => {
-    try {
-        res.render('cart', { title: "Cart" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     };
