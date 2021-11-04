@@ -6,12 +6,15 @@
         <%- include('./partials/search.ejs') %>
 
             <div>
-                <p>Cart page</p>
+                <p>Cart</p>
                 <% if(!cart) {%>
                     <p>Cart is empty</p>
                     <% } else { %>
-                        <p>Total Cost: <%= cart.cost %>
-                        </p>
+                        <img src="/<%= bookDetails.book_cover_path.slice(11) %>" alt="<%= bookDetails.title %>">
+                        <span><%= bookDetails.title %></span>
+                        <span>Quantity: <%= cart.quantity_array[0] %></span>
+                        <button>Remove</button>
+                        <span>Total Cost: <%= cart.cost %></span>
                         <% } %>
             </div>
 

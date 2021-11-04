@@ -27,7 +27,7 @@ export const addBookToCart = async (req, res) => {
                 cost,
                 number_of_items: booksArray.length
             });
-            res.render('cart', { title: 'Cart', cart: cart })
+            res.render('cart', { title: 'Cart', cart: cart, bookDetails: bookDetails })
         } else {
             const user_cart = await Cart.getCartById(subject);
             var countForIfBookAlreadyExists = 0;
