@@ -46,7 +46,24 @@ export async function checkUser(req, res, next) {
   };
 };
 
-export default { validateToken, checkUser };
+export async function checkUserCart(req, res, next) {
+  const cartItems = localStorage.getItem('cart');
+
+  if (cartItems) {
+      if (console.error()) {
+        res.locals.cartInfo = null;
+        next();
+      } else {
+        res.locals.cartInfo = JSON.parse(cartItems) ;
+        next();
+      }
+  } else {
+    res.locals.cartInfo = null;
+    next();
+  };
+};
+
+export default { validateToken, checkUser, checkUserCart };
 
 
 

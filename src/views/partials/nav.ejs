@@ -19,10 +19,20 @@
                 <li><a href="/api/auth/register">Sign Up or Log In</a></li>
             </ul>
             <% } %>
-            <a href="/api/cart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart">
-                <i class="fas fa fa-shopping-cart fa-lg"></i>
-                <span class="cart-basket d-flex align-items-center justify-content-center">
-                  0
-                </span>
-            </a>
+
+            <%  if(cartInfo) { %>
+                <a href="/api/cart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart">
+                    <i class="fas fa fa-shopping-cart fa-lg"></i>
+                    <span class="cart-basket d-flex align-items-center justify-content-center">
+                      <%= cartInfo.number_of_items %>
+                    </span>
+                </a>
+            <%  } else { %>
+                <a href="/api/cart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart">
+                    <i class="fas fa fa-shopping-cart fa-lg"></i>
+                    <span class="cart-basket d-flex align-items-center justify-content-center">
+                      0
+                    </span>
+                </a>
+                <%  } %>
 </nav>

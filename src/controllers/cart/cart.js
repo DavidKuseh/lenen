@@ -1,5 +1,9 @@
+import { LocalStorage } from 'node-localstorage';
+
 import * as Cart from '../../models/cart/cart.js';
 import * as Book from '../../models/books/books.js';
+
+global.localStorage = new LocalStorage('./src/scratch');
 
 export const addBookToCart = async (req, res) => {
     try {
@@ -27,6 +31,7 @@ export const addBookToCart = async (req, res) => {
                 cost,
                 number_of_items: booksArray.length
             });
+            localStorage.setItem('cart', JSON.stringify(cart));
             res.render('cart', { title: 'Cart', cart: cart, bookDetails: bookDetails })
         } else {
             const user_cart = await Cart.getCartById(subject);

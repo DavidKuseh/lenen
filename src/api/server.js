@@ -9,7 +9,7 @@ import authRouter from '../routes/auth/auth.js';
 import bookRouter from '../routes/books/books.js';
 import cartRouter from '../routes/cart/cart.js';
 import { getBooks } from '../models/books/books.js';
-import { checkUser } from '../middleware/validateToken.js';
+import { checkUser, checkUserCart } from '../middleware/validateToken.js';
 
 const server = express();
 
@@ -25,6 +25,8 @@ server.use(methodOverride('_method', {
 }));
 
 server.get('*', checkUser);
+server.get('*', checkUserCart);
+
 server.get('/', async (req, res) => {
     const books = await getBooks();
     res.render('index', { title: 'Home', books: books });
