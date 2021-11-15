@@ -12,12 +12,19 @@ export function up (knex) {
             table
                 .increments();
             table
+                .string('username', 128)
+                .notNullable();
+            table
                 .string('email', 128)
                 .notNullable()
                 .unique();
             table
                 .string('password', 128)
                 .notNullable();
+            table
+                .string('mailing_address');
+            table
+                .integer('phone_number');
             table
                 .integer('role')
                 .unsigned()
@@ -74,6 +81,9 @@ export function up (knex) {
                 .integer('number_of_items')
                 .notNullable()
                 .defaultTo(0);
+            table
+                .string('status')
+                .notNullable();
             table
                 .timestamp('date_created')
                 .defaultTo(knex.fn.now());
